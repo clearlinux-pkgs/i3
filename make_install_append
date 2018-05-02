@@ -1,0 +1,3 @@
+install -d -m 755 %{buildroot}/usr/share/xdg/i3
+install -m 644 etc/config %{buildroot}/usr/share/xdg/i3/
+install -m 644 etc/config.keycodes %{buildroot}/usr/share/xdg/i3/
