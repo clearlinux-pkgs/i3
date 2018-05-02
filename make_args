@@ -1,1 +1,1 @@
-|| ( sed -i 's/TEST_LOGS:/TEST_LOGS):/' Makefile && make %{?_smp_mflags} )
+|| ( sed -i 's/TEST_LOGS:/TEST_LOGS):/' Makefile && make %{?_smp_mflags} CPPFLAGS="-I/usr/include/libev/" )
