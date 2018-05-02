@@ -1,0 +1,18 @@
+# This file contains additional pkgconfig build requirements that did
+# not get picked up automatically. One name per line, no whitespace.
+xcb
+xcb-xkb
+xcb-xinerama
+xcb-randr
+xcb-event
+xcb-util
+xcb-cursor
+xcb-keysyms
+xcb-icccm
+xcb-xrm
+xkbcommon
+xkbcommon-x11
+yajl
+libpcre
+cairo
+pangocairo

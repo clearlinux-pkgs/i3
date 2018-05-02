@@ -1,0 +1,9 @@
+# This file contains build requirements that get picked up but are
+# undesirable. One entry per line, no whitespace.
+asciidoc
+xmlto
+perl(AnyEvent)
+perl(AnyEvent::Handle)
+perl(AnyEvent::Socket)
+perl(JSON::XS)
+perl(X11::XCB)
