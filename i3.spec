@@ -4,7 +4,7 @@
 #
 Name     : i3
 Version  : 4.15
-Release  : 3
+Release  : 4
 URL      : https://github.com/i3/i3/archive/4.15.tar.gz
 Source0  : https://github.com/i3/i3/archive/4.15.tar.gz
 Summary  : No detailed summary available
