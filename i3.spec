@@ -4,7 +4,7 @@
 #
 Name     : i3
 Version  : 4.16.1
-Release  : 6
+Release  : 8
 URL      : https://github.com/i3/i3/archive/4.16.1.tar.gz
 Source0  : https://github.com/i3/i3/archive/4.16.1.tar.gz
 Summary  : An improved dynamic tiling window manager
@@ -32,6 +32,7 @@ BuildRequires : pkgconfig(xcb-xrm)
 BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : pkgconfig(xkbcommon-x11)
 BuildRequires : pkgconfig(yajl)
+Patch1: stateless.patch
 
 %description
 =====================================================
@@ -63,6 +64,7 @@ Group: Development
 Requires: i3-bin = %{version}-%{release}
 Requires: i3-data = %{version}-%{release}
 Provides: i3-devel = %{version}-%{release}
+Requires: i3 = %{version}-%{release}
 
 %description dev
 dev components for the i3 package.
@@ -78,14 +80,15 @@ license components for the i3 package.
 
 %prep
 %setup -q -n i3-4.16.1
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1548690007
-%reconfigure --disable-static
+export SOURCE_DATE_EPOCH=1553866942
+%reconfigure --disable-static --sysconfdir=/usr/share/defaults/i3
 make  %{?_smp_mflags} || ( sed -i 's/TEST_LOGS:/TEST_LOGS):/' Makefile && make %{?_smp_mflags} CPPFLAGS="-I/usr/include/libev/" )
 
 %check
@@ -96,7 +99,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1548690007
+export SOURCE_DATE_EPOCH=1553866942
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/i3
 cp LICENSE %{buildroot}/usr/share/package-licenses/i3/LICENSE
@@ -132,6 +135,8 @@ install -m 644 etc/config.keycodes %{buildroot}/usr/share/xdg/i3/
 %files data
 %defattr(-,root,root,-)
 /usr/share/applications/i3.desktop
+/usr/share/defaults/i3/i3/config
+/usr/share/defaults/i3/i3/config.keycodes
 /usr/share/xdg/i3/config
 /usr/share/xdg/i3/config.keycodes
 /usr/share/xsessions/i3-with-shmlog.desktop
