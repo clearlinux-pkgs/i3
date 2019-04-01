@@ -1,0 +1,48 @@
+From c0e69f87886e009adbed20db73d40d7c88486e52 Mon Sep 17 00:00:00 2001
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Mon, 1 Apr 2019 09:34:22 -0700
+Subject: [PATCH] Stateless i3 and i3-config-wizard
+
+---
+ i3-config-wizard/main.c | 7 +++++--
+ libi3/get_config_path.c | 6 ++++++
+ 2 files changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/i3-config-wizard/main.c b/i3-config-wizard/main.c
+index 4b55665..9bca73c 100644
+--- a/i3-config-wizard/main.c
++++ b/i3-config-wizard/main.c
+@@ -654,8 +654,11 @@ static void finish(void) {
+         errx(1, "xkb_x11_keymap_new_from_device failed");
+ 
+     FILE *kc_config = fopen(SYSCONFDIR "/i3/config.keycodes", "r");
+-    if (kc_config == NULL)
+-        err(1, "Could not open input file \"%s\"", SYSCONFDIR "/i3/config.keycodes");
++    if (kc_config == NULL) {
++        *kc_config = fopen("/usr/share/xdg/i3/config.keycodes", "r");
++        if (kc_config == NULL)
++            err(1, "Could not open input file \"%s\"", SYSCONFDIR "/i3/config.keycodes");
++    }
+ 
+     FILE *ks_config = fopen(config_path, "w");
+     if (ks_config == NULL)
+diff --git a/libi3/get_config_path.c b/libi3/get_config_path.c
+index 4909e11..f2a0af4 100644
+--- a/libi3/get_config_path.c
++++ b/libi3/get_config_path.c
+@@ -89,6 +89,12 @@ char *get_config_path(const char *override_configpath, bool use_system_paths) {
+     }
+     free(buf);
+ 
++    /* 4: check the traditional path under /etc */
++    config_path = "/etc/i3/config";
++    if (path_exists(config_path)) {
++        return sstrdup(config_path);
++    }
++
+     /* 4: check the traditional path under /etc */
+     config_path = SYSCONFDIR "/i3/config";
+     if (path_exists(config_path)) {
+-- 
+2.21.0
+
