@@ -19,7 +19,7 @@ index 4b55665..9bca73c 100644
 -    if (kc_config == NULL)
 -        err(1, "Could not open input file \"%s\"", SYSCONFDIR "/i3/config.keycodes");
 +    if (kc_config == NULL) {
-+        *kc_config = fopen("/usr/share/xdg/i3/config.keycodes", "r");
++        kc_config = fopen("/usr/share/xdg/i3/config.keycodes", "r");
 +        if (kc_config == NULL)
 +            err(1, "Could not open input file \"%s\"", SYSCONFDIR "/i3/config.keycodes");
 +    }

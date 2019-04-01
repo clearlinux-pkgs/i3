@@ -4,10 +4,10 @@
 #
 Name     : i3
 Version  : 4.16.1
-Release  : 8
+Release  : 9
 URL      : https://github.com/i3/i3/archive/4.16.1.tar.gz
 Source0  : https://github.com/i3/i3/archive/4.16.1.tar.gz
-Summary  : An improved dynamic tiling window manager
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause
 Requires: i3-bin = %{version}-%{release}
@@ -32,13 +32,13 @@ BuildRequires : pkgconfig(xcb-xrm)
 BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : pkgconfig(xkbcommon-x11)
 BuildRequires : pkgconfig(yajl)
-Patch1: stateless.patch
+Patch1: 0001-Stateless-i3-and-i3-config-wizard.patch
 
 %description
-=====================================================
-[![Build Status](https://travis-ci.org/i3/i3.svg?branch=next)](https://travis-ci.org/i3/i3)
-[![Issue Stats](https://img.shields.io/github/issues/i3/i3.svg)](https://github.com/i3/i3/issues)
-[![Pull Request Stats](https://img.shields.io/github/issues-pr/i3/i3.svg)](https://github.com/i3/i3/pulls)
+Introduction
+============
+libi3 is an *INTERNAL* library which contains functions that i3 and related
+tools (i3-msg, i3-input, i3-nagbar, i3-config-wizard, i3bar) use.
 
 %package bin
 Summary: bin components for the i3 package.
@@ -64,7 +64,6 @@ Group: Development
 Requires: i3-bin = %{version}-%{release}
 Requires: i3-data = %{version}-%{release}
 Provides: i3-devel = %{version}-%{release}
-Requires: i3 = %{version}-%{release}
 
 %description dev
 dev components for the i3 package.
@@ -87,7 +86,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1553866942
+export SOURCE_DATE_EPOCH=1554136695
+export LDFLAGS="${LDFLAGS} -fno-lto"
 %reconfigure --disable-static --sysconfdir=/usr/share/defaults/i3
 make  %{?_smp_mflags} || ( sed -i 's/TEST_LOGS:/TEST_LOGS):/' Makefile && make %{?_smp_mflags} CPPFLAGS="-I/usr/include/libev/" )
 
@@ -99,7 +99,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1553866942
+export SOURCE_DATE_EPOCH=1554136695
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/i3
 cp LICENSE %{buildroot}/usr/share/package-licenses/i3/LICENSE
