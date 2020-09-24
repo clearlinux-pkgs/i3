@@ -4,7 +4,7 @@
 #
 Name     : i3
 Version  : 4.18.2
-Release  : 14
+Release  : 15
 URL      : https://github.com/i3/i3/archive/4.18.2/i3-4.18.2.tar.gz
 Source0  : https://github.com/i3/i3/archive/4.18.2/i3-4.18.2.tar.gz
 Summary  : A tiling window manager for X11
