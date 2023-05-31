@@ -5,7 +5,7 @@
 #
 Name     : i3
 Version  : 4.22
-Release  : 31
+Release  : 32
 URL      : https://github.com/i3/i3/archive/4.22/i3-4.22.tar.gz
 Source0  : https://github.com/i3/i3/archive/4.22/i3-4.22.tar.gz
 Summary  : A tiling window manager for X11
@@ -105,7 +105,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682985007
+export SOURCE_DATE_EPOCH=1685551889
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -144,7 +144,6 @@ install -m 644 etc/config.keycodes %{buildroot}/usr/share/xdg/i3/
 /V3/usr/bin/i3-input
 /V3/usr/bin/i3-msg
 /V3/usr/bin/i3-nagbar
-/V3/usr/bin/i3-with-shmlog
 /V3/usr/bin/i3bar
 /usr/bin/i3
 /usr/bin/i3-config-wizard
